@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body {
+        background-color: gainsboro;
+      }
+
+      #header {
+
+        background-color: gainsboro;
+
+        outline: 1px solid black;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;        
+
+      }
+      
+      #box {
+
+        background-color: gainsboro;
+        /* outline: 1px solid black; */
+        padding: 5px;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;    
+
+
+      }
+
+      #obj {
+        background-color: white;
+        position: relative;
+        width: 20%;
+      }
+
+    </style>
+    <title>CheckMessages</title>
+  </head>
+  <body>
+    <h1 id="header">Check Messages</h1>
+    <form action="CheckMessages.php" method="post">
+      <div id="box">
+        <input type="text" name="username" placeholder="Username" id="obj">
+      </div>
+      <div id="box">
+        <input type="submit" id="obj">
+      </div>
+    
+    </form>
+  </body>
+</html>
