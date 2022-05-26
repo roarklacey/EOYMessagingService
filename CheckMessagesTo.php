@@ -62,7 +62,7 @@ try {
 
     $messages = ($conn -> query("SELECT `body`, `fromUserId` FROM `messages` JOIN `messagerecipients` WHERE messagerecipients.toUserId = '$userId' AND messages.messageId = messagerecipients.messageId"));
 
-    print " <h1 id='header'> Username: " . $username . "</h1>";
+    print " <h1 id='header'> To Username: " . $username . "</h1>";
     foreach ( $messages as $message) {
       $fromUserIdTemp = $message['fromUserId'];
       $usernameTemp = ($conn -> query("SELECT `username` FROM `users` WHERE userId='$fromUserIdTemp' ")) -> fetch()['username'];

@@ -56,7 +56,7 @@
       <div id="checkMessagesToPanel">
         <p class="panelTitle">Messages To Panel</p>
         <form action="javascript:checkMessagesTo();" method="post">
-          To: <input type="text" name="someName" id="uniqueID"></input><br>
+          To: <input type="text" name="username" placeholder="Username" id="uniqueID"></input><br>
           <input type="submit"></input>
         </form>
       </div>
@@ -64,31 +64,28 @@
       <div id="checkMessagesFromPanel">
         <p class="panelTitle">Messages From Panel</p>
         <form action="javascript:checkMessagesFrom();" method="post">
-          From: <input type="text" name="someName" id="uniqueID"></input><br>
+          From: <input type="text" name="username" placeholder="Username" id="uniqueID"></input><br>
           <input type="submit"></input>
         </form>
       </div>
       
       <div id="newMessagePanel">
         <p class="panelTitle">New Message Panel</p>
-        <form action="javascript:processNewMessageOrSomething();" method="post">
-          From: <input type="text" name="someName" id="uniqueID"></input><br>
-          To: <input type="text" name="someName" id="uniqueID"></input><br>
-          Subject: <input type="text" name="someName" id="uniqueID"></input><br>
+        <form action="javascript:newMessage();" method="post">
+          From: <input type="text" name="from" placeholder="From" id="uniqueID"></input><br>
+          To: <input type="text" name="to" placeholder="Recipient(s)" id="uniqueID"></input><br>
           Body:<br>
-          <textarea rows=6 cols=30 name="someName" id="uniqueID3"></textarea><br>
+          <textarea rows=6 cols=30 name="message" id="uniqueID3"></textarea><br>
           <input type="submit"></input>
         </form>
       </div>
       
       <div id="newUserPanel">
         <p class="panelTitle">New User Panel</p>
-        <form action="javascript:processNewUserOrSomething();" method="post">
-          Username: <input type="text" name="someName" id="uniqueID"></input><br>
-          Passwyrd: <input type="text" name="someName" id="uniqueID"></input><br>
-          Le'mail: <input type="text" name="someName" id="uniqueID"></input><br>
-          FirstNom: <input type="text" name="someName" id="uniqueID"></input><br>
-          LastNym: <input type="text" name="someName" id="uniqueID"></input><br>
+        <form action="javascript:newUser();" method="post">
+          Username: <input type="text" name="username" placeholder="Username" id="uniqueID"></input><br>
+          Passwyrd: <input type="text" name="password" placeholder="Password" id="uniqueID"></input><br>
+          Le'mail: <input type="text" name="email" placeholder="Email" id="uniqueID"></input><br>
           <input type="submit"></input>
         </form>
       </div>
@@ -99,4 +96,40 @@
       This div is where the content from your AJAX requests will show up.
     </div>
   </body>
+  <script>
+    function sendAjax(url) {
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            // alert(xhr.responseText);
+            if(xhr.readyState == 4 && xhr.status == 200){
+                let reportArea = document.getElementById('reportArea');
+                reportArea.innerHTML += xhr.responseText;
+                
+            }
+        }
+
+        xhr.open("GET", url, true);
+
+        xhr.send(null);
+        
+    }
+
+    function checkMessagesTo() {
+        let url = "";
+        sendAjax(url);
+    }
+    function checkMessagesFrom() {
+
+    }
+
+    function newMessage() {
+
+    }
+
+    function newUser() {
+
+    }
+
+  </script>
 </html>
