@@ -84,7 +84,7 @@
         <p class="panelTitle">New User Panel</p>
         <form action="javascript:newUser();" method="post">
           Username: <input type="text" name="username" placeholder="Username" id="usernameNU"></input><br>
-          Passwyrd: <input type="text" name="password" placeholder="Password" id="passwordNU"></input><br>
+          Passwyrd: <input type="password" name="password" placeholder="Password" id="passwordNU"></input><br>
           Le'mail: <input type="text" name="email" placeholder="Email" id="emailNU"></input><br>
           <input type="submit"></input>
         </form>
@@ -131,10 +131,16 @@
       to = document.getElementById("toNM").value;
       message = document.getElementById("messageNM").value;
       let url = "newMessage.php?from=" + from + "?to=" + to + "?message=" + message;
+      console.log(url);
       sendAjax(url);
     }
 
     function newUser() {
+      username = document.getElementById("usernameNU").value;
+      password = document.getElementById("passwordNU").value;
+      email = document.getElementById("emailNU").value;
+      let url = "newUser.php?username=" + username + "?password=" + password + "?email=" + email;
+      sendAjax(url);
 
     }
 
