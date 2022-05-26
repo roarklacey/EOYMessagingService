@@ -1,17 +1,11 @@
 <style>
-      body {
-        background-color: gainsboro;
-      }
-
+      
       #header {
 
-        background-color: gainsboro;
-
-        outline: 1px solid black;
-        text-align: center;
-        display: flex;
+        font-weight: 700;
         align-items: center;
-        justify-content: center;        
+        display: flex;
+        justify-content: center; 
 
       }
       
@@ -62,7 +56,7 @@ try {
 
     $messages = ($conn -> query("SELECT `body`, `fromUserId` FROM `messages` JOIN `messagerecipients` WHERE messagerecipients.toUserId = '$userId' AND messages.messageId = messagerecipients.messageId"));
 
-    print " <h1 id='header'> To Username: " . $username . "</h1>";
+    print " <div id='header'> To Username: " . $username . "</div>";
     foreach ( $messages as $message) {
       $fromUserIdTemp = $message['fromUserId'];
       $usernameTemp = ($conn -> query("SELECT `username` FROM `users` WHERE userId='$fromUserIdTemp' ")) -> fetch()['username'];

@@ -1,11 +1,7 @@
 <style>
     
-    body {
-        background-color: gainsboro;
-    }
     #box {
         background-color: gainsboro;
-        outline: 1px solid black;
         align-items: center;
         display: flex;
         justify-content: center;

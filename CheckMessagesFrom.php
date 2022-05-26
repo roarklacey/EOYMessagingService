@@ -1,7 +1,4 @@
 <style>
-      body {
-        background-color: gainsboro;
-      }
 
       #header {
 

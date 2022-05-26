@@ -9,9 +9,10 @@
         height: 100%;
         margin: 0px;
         padding: 0px;
+        background-color: gainsboro;
       }
       #controlPanel {
-        background-color: #F0F000;
+        background-color: whitesmoke;
         height: 100%;
         float: left;
       }
@@ -25,17 +26,37 @@
       .panelTitle {
         padding: 0;
         margin: 0;
-        color: red;
+        color: black;
         text-align: center;
+        font-weight: 700;
       }
       
       /*	NOTE: This, combined with the mods to the input[type=text] CSS, make the
         fields of the form all line up on the right border (0px from the right)
       */
-      #checkMessagesToPanel, #checkMessagesFromPanel, #newUserPanel, #newMessagePanel {
+      #checkMessagesToPanel {
         border: 2px solid black;
         position: relative;
       }
+
+      #checkMessagesFromPanel{
+
+        border: 2px solid black;
+        border-top: 0px solid black;
+        position: relative;
+      }
+
+      #newUserPanel {
+        border: 2px solid black;
+        border-top: 0px solid black;
+        position: relative;
+      }
+      #newMessagePanel {
+        border: 2px solid black;
+        border-top: 0px solid black;
+        position: relative;
+      }
+
       
       /*	This, with the relative positioning of the panels (see above) is 
         one way to get the inputs to line up all nicely and flush against
@@ -72,10 +93,16 @@
       <div id="newMessagePanel">
         <p class="panelTitle">New Message Panel</p>
         <form action="javascript:newMessage();" method="post">
-          From: <input type="text" name="from" placeholder="From" id="fromNM"></input><br>
-          To: <input type="text" name="to" placeholder="Recipient(s)" id="toNM"></input><br>
-          Body:<br>
+          <div>
+            From: <input type="text" name="from" placeholder="From" id="fromNM"></input><br>
+          </div>
+          <div>
+            To: <input type="text" name="to" placeholder="Recipient(s)" id="toNM"></input><br>
+          </div>
+          <div>
+            Body:<br>
           <textarea rows=6 cols=30 name="message" id="messageNM"></textarea><br>
+          </div>
           <input type="submit"></input>
         </form>
       </div>
