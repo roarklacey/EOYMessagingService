@@ -56,7 +56,7 @@
       <div id="checkMessagesToPanel">
         <p class="panelTitle">Messages To Panel</p>
         <form action="javascript:checkMessagesTo();" method="post">
-          To: <input type="text" name="username" placeholder="Username" id="uniqueID"></input><br>
+          To: <input type="text" name="username" placeholder="Username" id="usernameCMT"></input><br>
           <input type="submit"></input>
         </form>
       </div>
@@ -64,7 +64,7 @@
       <div id="checkMessagesFromPanel">
         <p class="panelTitle">Messages From Panel</p>
         <form action="javascript:checkMessagesFrom();" method="post">
-          From: <input type="text" name="username" placeholder="Username" id="uniqueID"></input><br>
+          From: <input type="text" name="username" placeholder="Username" id="usernameCMF"></input><br>
           <input type="submit"></input>
         </form>
       </div>
@@ -72,10 +72,10 @@
       <div id="newMessagePanel">
         <p class="panelTitle">New Message Panel</p>
         <form action="javascript:newMessage();" method="post">
-          From: <input type="text" name="from" placeholder="From" id="uniqueID"></input><br>
-          To: <input type="text" name="to" placeholder="Recipient(s)" id="uniqueID"></input><br>
+          From: <input type="text" name="from" placeholder="From" id="fromNM"></input><br>
+          To: <input type="text" name="to" placeholder="Recipient(s)" id="toNM"></input><br>
           Body:<br>
-          <textarea rows=6 cols=30 name="message" id="uniqueID3"></textarea><br>
+          <textarea rows=6 cols=30 name="message" id="messageNM"></textarea><br>
           <input type="submit"></input>
         </form>
       </div>
@@ -83,9 +83,9 @@
       <div id="newUserPanel">
         <p class="panelTitle">New User Panel</p>
         <form action="javascript:newUser();" method="post">
-          Username: <input type="text" name="username" placeholder="Username" id="uniqueID"></input><br>
-          Passwyrd: <input type="text" name="password" placeholder="Password" id="uniqueID"></input><br>
-          Le'mail: <input type="text" name="email" placeholder="Email" id="uniqueID"></input><br>
+          Username: <input type="text" name="username" placeholder="Username" id="usernameNU"></input><br>
+          Passwyrd: <input type="text" name="password" placeholder="Password" id="passwordNU"></input><br>
+          Le'mail: <input type="text" name="email" placeholder="Email" id="emailNU"></input><br>
           <input type="submit"></input>
         </form>
       </div>
@@ -116,15 +116,22 @@
     }
 
     function checkMessagesTo() {
-        let url = "";
-        sendAjax(url);
+      username = document.getElementById("usernameCMT").value;
+      let url = "checkMessagesTo.php?username=" + username;
+      sendAjax(url);
     }
     function checkMessagesFrom() {
-
+      username = document.getElementById("usernameCMF").value;
+      let url = "checkMessagesFrom.php?username=" + username;
+      sendAjax(url);
     }
 
     function newMessage() {
-
+      from = document.getElementById("fromNM").value;
+      to = document.getElementById("toNM").value;
+      message = document.getElementById("messageNM").value;
+      let url = "newMessage.php?from=" + from + "?to=" + to + "?message=" + message;
+      sendAjax(url);
     }
 
     function newUser() {

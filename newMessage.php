@@ -33,9 +33,9 @@ try {
     //BELOW THIS is where you will vary the response...put your application logic between
     //this comment and the catch block below
 
-    $from = $_POST["from"];
-    $to = $_POST["to"];
-    $message = $_POST["message"];
+    $from = $_GET["from"];
+    $to = $_GET["to"];
+    $message = $_GET["message"];
 
     $sqlFrom = "SELECT `userId` FROM `users` WHERE username='$from'";
     $fromUserIdRC = $conn -> query( $sqlFrom);

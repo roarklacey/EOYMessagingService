@@ -55,12 +55,12 @@ try {
     //BELOW THIS is where you will vary the response...put your application logic between
     //this comment and the catch block below
 
-    $username = $_POST["username"];
+    $username = $_GET["username"];
     // $to = $_POST["to"];
 
     $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
 
-    $messages = ($conn -> query("SELECT `body` FROM `messages` JOIN WHERE messages.fromUserId = '$userId'"));
+    $messages = ($conn -> query("SELECT `body` FROM `messages` WHERE messages.fromUserId = '$userId'"));
 
     print " <h1 id='header'> From Username: " . $username . "</h1>";
     foreach ( $messages as $message) {
