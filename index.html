@@ -17,7 +17,7 @@
       }
       
       #reportArea {
-        background-color: #00F0F0;
+        background-color: gainsboro;
         height: 100%;
         width: 100%;
         
@@ -104,7 +104,7 @@
             // alert(xhr.responseText);
             if(xhr.readyState == 4 && xhr.status == 200){
                 let reportArea = document.getElementById('reportArea');
-                reportArea.innerHTML += xhr.responseText;
+                reportArea.innerHTML = xhr.responseText;
                 
             }
         }
@@ -130,8 +130,7 @@
       from = document.getElementById("fromNM").value;
       to = document.getElementById("toNM").value;
       message = document.getElementById("messageNM").value;
-      let url = "newMessage.php?from=" + from + "?to=" + to + "?message=" + message;
-      console.log(url);
+      let url = "newMessage.php?from=" + from + "&to=" + to + "&message=" + message;
       sendAjax(url);
     }
 
@@ -139,7 +138,7 @@
       username = document.getElementById("usernameNU").value;
       password = document.getElementById("passwordNU").value;
       email = document.getElementById("emailNU").value;
-      let url = "newUser.php?username=" + username + "?password=" + password + "?email=" + email;
+      let url = "newUser.php?username=" + username + "&password=" + password + "&email=" + email;
       sendAjax(url);
 
     }
