@@ -15,7 +15,6 @@
         /* outline: 1px solid black; */
         padding: 5px;
         display: flex;
-        text-align: center;
         align-items: center;
         justify-content: center;    
 
@@ -62,7 +61,7 @@ try {
       $usernameTemp = ($conn -> query("SELECT `username` FROM `users` WHERE userId='$fromUserIdTemp' ")) -> fetch()['username'];
       print "<div id='box'>";
       print "<div id='obj'>";
-      print $usernameTemp . ": ";
+      print "<strong>" . $usernameTemp . ":</strong> ";
       print $message['body'];
       print "</div>";
       print "</div>";

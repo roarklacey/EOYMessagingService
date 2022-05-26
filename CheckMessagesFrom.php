@@ -2,13 +2,10 @@
 
       #header {
 
-        background-color: gainsboro;
-
-        outline: 1px solid black;
-        text-align: center;
-        display: flex;
+        font-weight: 700;
         align-items: center;
-        justify-content: center;        
+        display: flex;
+        justify-content: center; 
 
       }
       
@@ -18,7 +15,6 @@
         /* outline: 1px solid black; */
         padding: 5px;
         display: flex;
-        text-align: center;
         align-items: center;
         justify-content: center;    
 
@@ -57,15 +53,27 @@ try {
 
     $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
 
-    $messages = ($conn -> query("SELECT `body` FROM `messages` WHERE messages.fromUserId = '$userId'"));
+    $messages = ($conn -> query("SELECT `body`, `messageId` FROM `messages` WHERE messages.fromUserId = '$userId'"));
 
-    print " <h1 id='header'> From Username: " . $username . "</h1>";
+    print " <div id='header'> From Username: " . $username . "</div>";
     foreach ( $messages as $message) {
-      // $fromUserIdTemp = $message['fromUserId'];
-      // $usernameTemp = ($conn -> query("SELECT `username` FROM `users` WHERE userId='$fromUserIdTemp' ")) -> fetch()['username'];
+      $messageIdTemp = $message['messageId'];
+      $recipientUserIds = ($conn -> query("SELECT `toUserId` FROM `messageRecipients` WHERE `messageId` = '$messageIdTemp' "));
       print "<div id='box'>";
       print "<div id='obj'>";
-      // print $usernameTemp . ": ";
+      print "<strong>To ";
+      $firstTime = True;
+      foreach( $recipientUserIds as $recipientUserId) {
+        if ($firstTime) {
+          $firstTime = False;
+        }
+        else {
+          print ", ";
+        }
+        $idTemp = $recipientUserId['toUserId'];
+        print ($conn -> query("SELECT `username` FROM `users` WHERE `userId` = '$idTemp'"))->fetch()['username'];
+      }
+      print "</strong>: ";
       print $message['body'];
       print "</div>";
       print "</div>";

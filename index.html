@@ -29,6 +29,7 @@
         color: black;
         text-align: center;
         font-weight: 700;
+        padding: 2px;
       }
       
       /*	NOTE: This, combined with the mods to the input[type=text] CSS, make the
@@ -70,6 +71,14 @@
         position: absolute;
         right: 0px;
       }
+      input[type=password] {
+        width: 150px;
+        position: absolute;
+        right: 0px;
+      }
+      #indiv {
+        padding: 2px;
+      }
     </style>  </head>
   <body>
     <div id="controlPanel">
@@ -77,31 +86,39 @@
       <div id="checkMessagesToPanel">
         <p class="panelTitle">Messages To Panel</p>
         <form action="javascript:checkMessagesTo();" method="post">
-          To: <input type="text" name="username" placeholder="Username" id="usernameCMT"></input><br>
-          <input type="submit"></input>
+          <div id="indiv">
+            To: <input type="text" name="username" placeholder="Username" id="usernameCMT"></input><br>
+          </div>
+          <div id="indiv">
+            <input type="submit"></input>
+          </div>
         </form>
       </div>
       
       <div id="checkMessagesFromPanel">
         <p class="panelTitle">Messages From Panel</p>
         <form action="javascript:checkMessagesFrom();" method="post">
-          From: <input type="text" name="username" placeholder="Username" id="usernameCMF"></input><br>
-          <input type="submit"></input>
+          <div id="indiv">
+            From: <input type="text" name="username" placeholder="Username" id="usernameCMF"></input><br>
+          </div>
+          <div id="indiv">
+            <input type="submit"></input>
+          </div>
         </form>
       </div>
       
       <div id="newMessagePanel">
         <p class="panelTitle">New Message Panel</p>
         <form action="javascript:newMessage();" method="post">
-          <div>
-            From: <input type="text" name="from" placeholder="From" id="fromNM"></input><br>
+          <div id="indiv">
+            From: <input type="text" name="from" placeholder="From" id="fromNM"></input>
           </div>
-          <div>
-            To: <input type="text" name="to" placeholder="Recipient(s)" id="toNM"></input><br>
+          <div id="indiv">
+            To: <input type="text" name="to" placeholder="Recipient(s)" id="toNM"></input>
           </div>
-          <div>
+          <div id="indiv">
             Body:<br>
-          <textarea rows=6 cols=30 name="message" id="messageNM"></textarea><br>
+          <textarea rows=6 cols=30 name="message" id="messageNM"></textarea>
           </div>
           <input type="submit"></input>
         </form>
@@ -110,17 +127,25 @@
       <div id="newUserPanel">
         <p class="panelTitle">New User Panel</p>
         <form action="javascript:newUser();" method="post">
-          Username: <input type="text" name="username" placeholder="Username" id="usernameNU"></input><br>
-          Passwyrd: <input type="password" name="password" placeholder="Password" id="passwordNU"></input><br>
-          Le'mail: <input type="text" name="email" placeholder="Email" id="emailNU"></input><br>
-          <input type="submit"></input>
+          <div id="indiv">
+            Username: <input type="text" name="username" placeholder="Username" id="usernameNU"></input>
+          </div>
+          <div id="indiv">
+            Password: <input type="password" name="password" placeholder="Password" id="passwordNU"></input>
+          </div>
+          <div id="indiv">
+            Email: <input type="text" name="email" placeholder="Email" id="emailNU"></input>
+          </div>
+          <div id="indiv">
+            <input type="submit"></input>
+          </div>
         </form>
       </div>
     
     </div>
     
     <div id="reportArea">
-      This div is where the content from your AJAX requests will show up.
+      AJAX Request Output
     </div>
   </body>
   <script>
