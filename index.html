@@ -20,9 +20,12 @@
       #reportArea {
         background-color: gainsboro;
         height: 100%;
-        width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+
         
       }
+      
       .panelTitle {
         padding: 0;
         margin: 0;
@@ -145,7 +148,7 @@
     </div>
     
     <div id="reportArea">
-      AJAX Request Output
+      AJAX Request Output 
     </div>
   </body>
   <script>
@@ -153,7 +156,6 @@
         let xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = function() {
-            // alert(xhr.responseText);
             if(xhr.readyState == 4 && xhr.status == 200){
                 let reportArea = document.getElementById('reportArea');
                 reportArea.innerHTML = xhr.responseText;

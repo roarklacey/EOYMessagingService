@@ -55,7 +55,7 @@ try {
 
     $messages = ($conn -> query("SELECT `body`, `messageId` FROM `messages` WHERE messages.fromUserId = '$userId'"));
 
-    print " <div id='header'> From Username: " . $username . "</div>";
+    print "<div id='header'> From Username: " . $username . "</div>";
     foreach ( $messages as $message) {
       $messageIdTemp = $message['messageId'];
       $recipientUserIds = ($conn -> query("SELECT `toUserId` FROM `messageRecipients` WHERE `messageId` = '$messageIdTemp' "));
