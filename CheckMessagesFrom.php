@@ -1,14 +1,10 @@
 <style>
-
       #header {
-
         font-weight: 700;
         align-items: center;
         display: flex;
         justify-content: center; 
-
       }
-      
       #box {
 
         background-color: gainsboro;
@@ -16,10 +12,7 @@
         display: flex;
         align-items: center;
         justify-content: center;    
-
-
       }
-
       #obj {
         background-color: white;
         position: relative;
@@ -32,9 +25,7 @@
         justify-content: center;
         font-weight: 700;
     }
-
     </style>
-
 
 <?php
 //See original: https://www.w3schools.com/php/php_mysql_connect.asp
@@ -55,7 +46,6 @@ try {
       }
 
       $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
-      // $userId = $userIdTemp -> fetch()['userId'];
 
       $messages = ($conn -> query("SELECT `body`, `messageId` FROM `messages` WHERE messages.fromUserId = '$userId'"));
 
@@ -93,12 +83,8 @@ try {
       }
     }
 
-    
-
 }
 catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
 ?>
-
-<a href="#"></a>

@@ -1,5 +1,4 @@
 <style>
-    
     #box {
         background-color: gainsboro;
         align-items: center;
@@ -14,10 +13,7 @@
         justify-content: center;
         font-weight: 700;
     }
-
 </style>
-
-
 
 <?php
 //See original: https://www.w3schools.com/php/php_mysql_connect.asp
@@ -69,7 +65,6 @@ try {
         <div id='box'>
         Your Message Has Been Sent
         </div>
-
         ";
     }
     catch (Exception $e) {
@@ -82,7 +77,6 @@ try {
         if(str_contains($e, "Body_Field_Blank")) {
           print "<div id='errorBox'>Body Field Cannot Be Blank - New Message Panel</div>";
         }
-
     }
     
 }
@@ -90,5 +84,3 @@ catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
 ?>
-
-<a href="#"></a>

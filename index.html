@@ -2,8 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title>AJAX Messaging Project UI 2018</title>
-  
+    <title>AJAX Messaging Project</title>
     <style>
       html, body {
         height: 100%;
@@ -155,6 +154,7 @@
       let url = "checkMessagesTo.php?username=" + username;
       sendAjax(url);
     }
+
     function checkMessagesFrom() {
       username = document.getElementById("usernameCMF").value;
       let url = "checkMessagesFrom.php?username=" + username;

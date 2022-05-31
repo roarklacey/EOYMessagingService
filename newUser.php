@@ -1,6 +1,4 @@
 <style>
-    
-
     #box {
         background-color: gainsboro;
         align-items: center;
@@ -8,7 +6,6 @@
         justify-content: center;
         font-weight: 700;
     }
-
     #errorBox {
         background-color: gainsboro;
         align-items: center;
@@ -16,9 +13,7 @@
         justify-content: center;
         font-weight: 700;
     }
-
 </style>
-
 
 <?php
 //See original: https://www.w3schools.com/php/php_mysql_connect.asp
@@ -47,7 +42,6 @@ try {
             throw new Exception("Email_Field_Blank");
         }
     
-    
         $sql = "INSERT INTO `users`(`username`, `password`, `email`) VALUES ('$user', '$password', '$email')";
     
         $conn -> exec( $sql );
@@ -56,7 +50,6 @@ try {
         <div id='box'>
         New User Created
         </div>
-    
         ";
     }
     catch (Exception $e) {
@@ -69,14 +62,10 @@ try {
         if(str_contains($e, "Email_Field_Blank")) {
           print "<div id='errorBox'>Email Field Cannot Be Blank - New User Panel</div>";
         }
-
     }
-
-   
 
 }
 catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
 ?>
-
