@@ -6,7 +6,6 @@
         justify-content: center; 
       }
       #box {
-
         background-color: gainsboro;
         padding: 5px;
         display: flex;
