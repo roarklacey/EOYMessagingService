@@ -23,6 +23,7 @@
         display: flex;
         justify-content: center;
         font-weight: 700;
+        color: red;
       }
     </style>
 
