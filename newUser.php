@@ -41,7 +41,7 @@ try {
 
     print "
     <div id='box'>
-    Success
+    New User Created
     </div>
 
     ";

@@ -26,6 +26,13 @@
         position: relative;
         width: 50%;
       }
+      #errorBox {
+        background-color: gainsboro;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-weight: 700;
+    }
 
     </style>
 
@@ -48,36 +55,52 @@ try {
     //BELOW THIS is where you will vary the response...put your application logic between
     //this comment and the catch block below
 
-    $username = $_GET["username"];
-    // $to = $_POST["to"];
-
-    $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
-
-    $messages = ($conn -> query("SELECT `body`, `messageId` FROM `messages` WHERE messages.fromUserId = '$userId'"));
-
-    print "<div id='header'> From Username: " . $username . "</div>";
-    foreach ( $messages as $message) {
-      $messageIdTemp = $message['messageId'];
-      $recipientUserIds = ($conn -> query("SELECT `toUserId` FROM `messageRecipients` WHERE `messageId` = '$messageIdTemp' "));
-      print "<div id='box'>";
-      print "<div id='obj'>";
-      print "<strong>To ";
-      $firstTime = True;
-      foreach( $recipientUserIds as $recipientUserId) {
-        if ($firstTime) {
-          $firstTime = False;
-        }
-        else {
-          print ", ";
-        }
-        $idTemp = $recipientUserId['toUserId'];
-        print ($conn -> query("SELECT `username` FROM `users` WHERE `userId` = '$idTemp'"))->fetch()['username'];
+    try {
+      $username = $_GET["username"];
+      if( $username == ""){
+        throw new Exception("Username_Blank");
       }
-      print "</strong>: ";
-      print $message['body'];
-      print "</div>";
-      print "</div>";
+
+      $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
+      // $userId = $userIdTemp -> fetch()['userId'];
+
+      $messages = ($conn -> query("SELECT `body`, `messageId` FROM `messages` WHERE messages.fromUserId = '$userId'"));
+
+      print "<div id='header'> From Username: " . $username . "</div>";
+        
+      if( $messages == "" ) {
+        print "<div id='box'><div id='obj'>No Messages</div></div>";
+      }
+      foreach ( $messages as $message) {
+        $messageIdTemp = $message['messageId'];
+        $recipientUserIds = ($conn -> query("SELECT `toUserId` FROM `messageRecipients` WHERE `messageId` = '$messageIdTemp' "));
+        print "<div id='box'>";
+        print "<div id='obj'>";
+        print "<strong>To ";
+        $firstTimeRecipientLoop = True;
+        foreach( $recipientUserIds as $recipientUserId) {
+          if ($firstTimeRecipientLoop) {
+            $firstTimeRecipientLoop = False;
+          }
+          else {
+            print ", ";
+          }
+          $idTemp = $recipientUserId['toUserId'];
+          print ($conn -> query("SELECT `username` FROM `users` WHERE `userId` = '$idTemp'"))->fetch()['username'];
+        }
+        print "</strong>: ";
+        print $message['body'];
+        print "</div>";
+        print "</div>";
+      }
     }
+    catch (Exception $e) {
+      if(str_contains($e, "Username_Blank")) {
+        print "<div id='errorBox'>Username Cannot Be Blank - Messages From Panel</div>";
+      }
+    }
+
+    
 
 }
 catch(PDOException $e) {

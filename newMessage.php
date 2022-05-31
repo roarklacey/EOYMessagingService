@@ -39,19 +39,22 @@ try {
     $fromUserIdR = $fromUserIdRC -> fetch();
     $fromUserId = $fromUserIdR['userId'];
 
-    $toUserId = $conn -> query("SELECT `userId` FROM `users` WHERE username='$to'") -> fetch()['userId'];
+    $recipients = explode(", ", "$to");
+    for($i = 0; $i < sizeOf($recipients); $i++) {
+        $tempRecipientUN = $recipients[$i];
+        $recipients[$i] = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$tempRecipientUN'")) -> fetch()['userId'];
+    }
 
     $conn -> exec( "INSERT INTO `messages`(`body`, `fromUserId`) VALUES ('$message', '$fromUserId')" );
+    $messageId = $conn -> lastInsertId();
 
-    $messageId = ($conn -> query("SELECT `messageId` FROM `messages` WHERE body='$message'")) -> fetch()['messageId'];
-
-    $sqlMessageRecipients = "INSERT INTO `messagerecipients`(`messageId`, `toUserId`) VALUES ('$messageId', '$toUserId')";
-    $conn -> exec ($sqlMessageRecipients);
-
-
+    foreach( $recipients as $recipient) {
+        $conn -> exec ("INSERT INTO `messagerecipients`(`messageId`, `toUserId`) VALUES ('$messageId', '$recipient')");
+    }
+    
     print "
     <div id='box'>
-    Success
+    Your Message Has Been Sent
     </div>
 
     ";

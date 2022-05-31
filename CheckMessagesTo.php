@@ -26,6 +26,13 @@
         position: relative;
         width: 50%;
       }
+      #errorBox {
+        background-color: gainsboro;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-weight: 700;
+      }
 
     </style>
 
@@ -48,24 +55,35 @@ try {
     //BELOW THIS is where you will vary the response...put your application logic between
     //this comment and the catch block below
 
-    $username = $_GET["username"];
-    // $to = $_POST["to"];
+    try {
+      $username = $_GET["username"];
+      if( $username == ""){
+        throw new Exception("Username_Blank");
+      }
 
-    $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
+      $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
 
-    $messages = ($conn -> query("SELECT `body`, `fromUserId` FROM `messages` JOIN `messagerecipients` WHERE messagerecipients.toUserId = '$userId' AND messages.messageId = messagerecipients.messageId"));
+      $messages = ($conn -> query("SELECT `body`, `fromUserId` FROM `messages` JOIN `messagerecipients` WHERE messagerecipients.toUserId = '$userId' AND messages.messageId = messagerecipients.messageId"));
 
-    print " <div id='header'> To Username: " . $username . "</div>";
-    foreach ( $messages as $message) {
-      $fromUserIdTemp = $message['fromUserId'];
-      $usernameTemp = ($conn -> query("SELECT `username` FROM `users` WHERE userId='$fromUserIdTemp' ")) -> fetch()['username'];
-      print "<div id='box'>";
-      print "<div id='obj'>";
-      print "<strong>" . $usernameTemp . ":</strong> ";
-      print $message['body'];
-      print "</div>";
-      print "</div>";
+      print " <div id='header'> To Username: " . $username . "</div>";
+      foreach ( $messages as $message) {
+        $fromUserIdTemp = $message['fromUserId'];
+        $usernameTemp = ($conn -> query("SELECT `username` FROM `users` WHERE userId='$fromUserIdTemp' ")) -> fetch()['username'];
+        print "<div id='box'>";
+        print "<div id='obj'>";
+        print "<strong>" . $usernameTemp . ":</strong> ";
+        print $message['body'];
+        print "</div>";
+        print "</div>";
+      }
     }
+    catch (Exception $e) {
+      if(str_contains($e, "Username_Blank")) {
+        print "<div id='errorBox'>Username Cannot Be Blank - Messages To Panel</div>";
+      }
+    }
+
+    
 
 }
 catch(PDOException $e) {
