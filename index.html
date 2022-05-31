@@ -101,9 +101,14 @@
           </div>
           <div id="indiv">
             Body:<br>
-          <textarea rows=6 cols=30 name="message" id="messageNM"></textarea>
+          <textarea rows=6 cols=30 name="message" maxlength="1000" id="messageNM"></textarea>
           </div>
-          <input type="submit"></input>
+          <div id="indiv">
+            <input type="submit"></input>
+          </div>
+          <div id="indiv">
+            <button type="button" onclick="information()">Information</button>
+          </div>
         </form>
       </div>
       
@@ -175,7 +180,10 @@
       email = document.getElementById("emailNU").value;
       let url = "newUser.php?username=" + username + "&password=" + password + "&email=" + email;
       sendAjax(url);
-
+    }
+    
+    function information() {
+      alert("Send Message to Multiple Recipients Separating by Comma Space\nExample: 'user1, user2, user3'");
     }
 
   </script>

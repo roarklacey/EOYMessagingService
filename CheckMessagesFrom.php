@@ -51,7 +51,7 @@ try {
       }
       $userId = $userIdTemp -> fetch()['userId'];
 
-      $messages = ($conn -> query("SELECT `body`, `messageId` FROM `messages` WHERE messages.fromUserId = '$userId'"));
+      $messages = ($conn -> query("SELECT `body`, `messageId`, `dateTime` FROM `messages` WHERE messages.fromUserId = '$userId' ORDER BY `dateTime` DESC"));
 
       print "<div id='header'> From Username: " . $username . "</div>";
       
@@ -60,7 +60,7 @@ try {
       }
       foreach ( $messages as $message) {
         $messageIdTemp = $message['messageId'];
-        $recipientUserIds = ($conn -> query("SELECT `toUserId` FROM `messageRecipients` WHERE `messageId` = '$messageIdTemp' "));
+        $recipientUserIds = ($conn -> query("SELECT `toUserId` FROM `messageRecipients` WHERE `messageId` = '$messageIdTemp'"));
         print "<div id='box'>";
         print "<div id='obj'>";
         print "<strong>To ";
@@ -77,6 +77,9 @@ try {
         }
         print "</strong>: ";
         print $message['body'];
+        print "<br><i>";
+        print $message['dateTime'];
+        print "</i>";
         print "</div>";
         print "</div>";
       }
