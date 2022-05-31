@@ -41,10 +41,14 @@ try {
     try {
       $username = $_GET["username"];
       if( $username == ""){
-        throw new Exception("Username_Blank");
+        throw new Exception("Username_Field_Blank");
       }
 
-      $userId = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'")) -> fetch()['userId'];
+      $userIdTemp = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'"));
+      if( ($userIdTemp -> rowCount() ) == 0) {
+        throw new Exception("Username_Field_Invalid");
+      }
+      $userId = $userIdTemp -> fetch()['userId'];
 
       $messages = ($conn -> query("SELECT `body`, `fromUserId` FROM `messages` JOIN `messagerecipients` WHERE messagerecipients.toUserId = '$userId' AND messages.messageId = messagerecipients.messageId"));
 
@@ -66,8 +70,11 @@ try {
       }
     }
     catch (Exception $e) {
-      if(str_contains($e, "Username_Blank")) {
-        print "<div id='errorBox'>Username Cannot Be Blank - Messages To Panel</div>";
+      if(str_contains($e, "Username_Field_Blank")) {
+        print "<div id='errorBox'>Username Field Blank - Messages To Panel</div>";
+      }
+      if(str_contains($e, "Username_Field_Invalid")) {
+        print "<div id='errorBox'>Username Field Invalid - Messages To Panel</div>";
       }
     }
 

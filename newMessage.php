@@ -43,15 +43,20 @@ try {
             throw new Exception("Body_Field_Blank");
         }
 
-        $sqlFrom = "SELECT `userId` FROM `users` WHERE username='$from'";
-        $fromUserIdRC = $conn -> query( $sqlFrom);
-        $fromUserIdR = $fromUserIdRC -> fetch();
-        $fromUserId = $fromUserIdR['userId'];
+        $fromUserIdTemp = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$from'"));
+        if( ($fromUserIdTemp -> rowCount() ) == 0) {
+            throw new Exception("From_Field_Invalid");
+        }
+        $fromUserId = $fromUserIdTemp -> fetch()['userId'];
 
         $recipients = explode(", ", "$to");
         for($i = 0; $i < sizeOf($recipients); $i++) {
             $tempRecipientUN = $recipients[$i];
-            $recipients[$i] = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$tempRecipientUN'")) -> fetch()['userId'];
+            $recipientUserIdTemp = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$tempRecipientUN'"));
+            if( ($recipientUserIdTemp -> rowCount() ) == 0) {
+                throw new Exception("To_Field_Invalid");
+            }
+            $recipients[$i] =  $recipientUserIdTemp -> fetch()['userId'];
         }
 
         $conn -> exec( "INSERT INTO `messages`(`body`, `fromUserId`) VALUES ('$message', '$fromUserId')" );
@@ -61,21 +66,23 @@ try {
             $conn -> exec ("INSERT INTO `messagerecipients`(`messageId`, `toUserId`) VALUES ('$messageId', '$recipient')");
         }
         
-        print "
-        <div id='box'>
-        Your Message Has Been Sent
-        </div>
-        ";
+        print "<div id='box'>Your Message Has Been Sent</div>";
     }
     catch (Exception $e) {
         if(str_contains($e, "From_Field_Blank")) {
-          print "<div id='errorBox'>From Field Cannot Be Blank - New Message Panel</div>";
+          print "<div id='errorBox'>From Field Blank - New Message Panel</div>";
         }
         if(str_contains($e, "To_Field_Blank")) {
-            print "<div id='errorBox'>To Field Cannot Be Blank - New Message Panel</div>";
+            print "<div id='errorBox'>To Field Blank - New Message Panel</div>";
         }
         if(str_contains($e, "Body_Field_Blank")) {
-          print "<div id='errorBox'>Body Field Cannot Be Blank - New Message Panel</div>";
+          print "<div id='errorBox'>Body Field Blank - New Message Panel</div>";
+        }
+        if(str_contains($e, "From_Field_Invalid")) {
+            print "<div id='errorBox'>From Field Invalid - New Message Panel</div>";
+        }
+        if(str_contains($e, "To_Field_Invalid")) {
+            print "<div id='errorBox'>To Field Invalid - New Message Panel</div>";
         }
     }
     

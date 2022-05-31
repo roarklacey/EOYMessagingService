@@ -28,12 +28,12 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
-        $user = $_GET["username"];
+        $username = $_GET["username"];
         $password = $_GET["password"];
         $email = $_GET["email"];
 
-        if ($user == "") {
-            throw new Exception("User_Field_Blank");
+        if ($username == "") {
+            throw new Exception("Username_Field_Blank");
         }
         if ($password == "") {
             throw new Exception("Password_Field_Blank");
@@ -41,26 +41,35 @@ try {
         if ($email == "") {
             throw new Exception("Email_Field_Blank");
         }
+
+        $userIdTemp = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$username'"));
+         if( !(($userIdTemp -> rowCount() ) == 0)) {
+            throw new Exception("Username_Field_Taken");
+        }
+        $emailTemp = ($conn -> query("SELECT `email` FROM `users` WHERE email='$email'"));
+         if( !(($emailTemp -> rowCount() ) == 0)) {
+            throw new Exception("Email_Field_Taken");
+        }
+        
+        $conn -> exec( "INSERT INTO `users`(`username`, `password`, `email`) VALUES ('$username', '$password', '$email')" );
     
-        $sql = "INSERT INTO `users`(`username`, `password`, `email`) VALUES ('$user', '$password', '$email')";
-    
-        $conn -> exec( $sql );
-    
-        print "
-        <div id='box'>
-        New User Created
-        </div>
-        ";
+        print "<div id='box'>New User Created</div>";
     }
     catch (Exception $e) {
-        if(str_contains($e, "User_Field_Blank")) {
-          print "<div id='errorBox'>Username Field Cannot Be Blank - New User Panel</div>";
+        if(str_contains($e, "Username_Field_Blank")) {
+          print "<div id='errorBox'>Username Field Blank - New User Panel</div>";
         }
         if(str_contains($e, "Password_Field_Blank")) {
-            print "<div id='errorBox'>Password Field Cannot Be Blank - New User Panel</div>";
+            print "<div id='errorBox'>Password Field Blank - New User Panel</div>";
         }
         if(str_contains($e, "Email_Field_Blank")) {
-          print "<div id='errorBox'>Email Field Cannot Be Blank - New User Panel</div>";
+          print "<div id='errorBox'>Email Field Blank - New User Panel</div>";
+        }
+        if(str_contains($e, "Username_Field_Taken")) {
+            print "<div id='errorBox'>Username Field Taken - New User Panel</div>";
+        }
+        if(str_contains($e, "Email_Field_Taken")) {
+            print "<div id='errorBox'>Email Field Taken - New User Panel</div>";
         }
     }
 
