@@ -12,7 +12,6 @@
       #box {
 
         background-color: gainsboro;
-        /* outline: 1px solid black; */
         padding: 5px;
         display: flex;
         align-items: center;
@@ -47,13 +46,7 @@ $dbName = "chatlog";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
 
-    // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	    //EVERYTHING ABOVE, and the catch block below, is part of a template that we
-    //will use every time we want to connect to the database…
-    //BELOW THIS is where you will vary the response...put your application logic between
-    //this comment and the catch block below
 
     try {
       $username = $_GET["username"];
@@ -67,9 +60,9 @@ try {
       $messages = ($conn -> query("SELECT `body`, `messageId` FROM `messages` WHERE messages.fromUserId = '$userId'"));
 
       print "<div id='header'> From Username: " . $username . "</div>";
-        
-      if( $messages == "" ) {
-        print "<div id='box'><div id='obj'>No Messages</div></div>";
+      
+      if( ($messages -> rowCount()) == 0 ) {
+        print "<div id='box'><div id='obj'>No Messages from " . $username . "</div></div>";
       }
       foreach ( $messages as $message) {
         $messageIdTemp = $message['messageId'];

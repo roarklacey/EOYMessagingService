@@ -7,6 +7,13 @@
         justify-content: center;
         font-weight: 700;
     }
+    #errorBox {
+        background-color: gainsboro;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-weight: 700;
+    }
 
 </style>
 
@@ -20,44 +27,64 @@ $password = "";
 $dbName = "chatlog";
 
 try {
+    
     $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
 
-    // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    try {
+        
+        $from = $_GET["from"];
+        $to = $_GET["to"];
+        $message = $_GET["message"];
+        if ($from == "") {
+            throw new Exception("From_Field_Blank");
+        }
+        if ($to == "") {
+            throw new Exception("To_Field_Blank");
+        }
+        if ($message == "") {
+            throw new Exception("Body_Field_Blank");
+        }
 
-	    //EVERYTHING ABOVE, and the catch block below, is part of a template that we
-    //will use every time we want to connect to the database…
-    //BELOW THIS is where you will vary the response...put your application logic between
-    //this comment and the catch block below
+        $sqlFrom = "SELECT `userId` FROM `users` WHERE username='$from'";
+        $fromUserIdRC = $conn -> query( $sqlFrom);
+        $fromUserIdR = $fromUserIdRC -> fetch();
+        $fromUserId = $fromUserIdR['userId'];
 
-    $from = $_GET["from"];
-    $to = $_GET["to"];
-    $message = $_GET["message"];
+        $recipients = explode(", ", "$to");
+        for($i = 0; $i < sizeOf($recipients); $i++) {
+            $tempRecipientUN = $recipients[$i];
+            $recipients[$i] = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$tempRecipientUN'")) -> fetch()['userId'];
+        }
 
-    $sqlFrom = "SELECT `userId` FROM `users` WHERE username='$from'";
-    $fromUserIdRC = $conn -> query( $sqlFrom);
-    $fromUserIdR = $fromUserIdRC -> fetch();
-    $fromUserId = $fromUserIdR['userId'];
+        $conn -> exec( "INSERT INTO `messages`(`body`, `fromUserId`) VALUES ('$message', '$fromUserId')" );
+        $messageId = $conn -> lastInsertId();
 
-    $recipients = explode(", ", "$to");
-    for($i = 0; $i < sizeOf($recipients); $i++) {
-        $tempRecipientUN = $recipients[$i];
-        $recipients[$i] = ($conn -> query("SELECT `userId` FROM `users` WHERE username='$tempRecipientUN'")) -> fetch()['userId'];
+        foreach( $recipients as $recipient) {
+            $conn -> exec ("INSERT INTO `messagerecipients`(`messageId`, `toUserId`) VALUES ('$messageId', '$recipient')");
+        }
+        
+        print "
+        <div id='box'>
+        Your Message Has Been Sent
+        </div>
+
+        ";
     }
+    catch (Exception $e) {
+        if(str_contains($e, "From_Field_Blank")) {
+          print "<div id='errorBox'>From Field Cannot Be Blank - New Message Panel</div>";
+        }
+        if(str_contains($e, "To_Field_Blank")) {
+            print "<div id='errorBox'>To Field Cannot Be Blank - New Message Panel</div>";
+        }
+        if(str_contains($e, "Body_Field_Blank")) {
+          print "<div id='errorBox'>Body Field Cannot Be Blank - New Message Panel</div>";
+        }
 
-    $conn -> exec( "INSERT INTO `messages`(`body`, `fromUserId`) VALUES ('$message', '$fromUserId')" );
-    $messageId = $conn -> lastInsertId();
-
-    foreach( $recipients as $recipient) {
-        $conn -> exec ("INSERT INTO `messagerecipients`(`messageId`, `toUserId`) VALUES ('$messageId', '$recipient')");
     }
     
-    print "
-    <div id='box'>
-    Your Message Has Been Sent
-    </div>
-
-    ";
 }
 catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
