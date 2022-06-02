@@ -1,18 +1,23 @@
 <style>
     #box {
-        background-color: gainsboro;
+        font-weight: 700;
         align-items: center;
         display: flex;
-        justify-content: center;
-        font-weight: 700;
+        justify-content: center; 
+        padding: 5px;
+        color: #535353;
+        font-family: Verdana;
+        font-size: 30px;
     }
     #errorBox {
-        background-color: gainsboro;
+        font-weight: 700;
         align-items: center;
         display: flex;
-        justify-content: center;
-        font-weight: 700;
+        justify-content: center; 
+        padding: 5px;
         color: red;
+        font-family: Verdana;
+        font-size: 30px;
     }
 </style>
 

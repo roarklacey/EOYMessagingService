@@ -4,6 +4,10 @@
         align-items: center;
         display: flex;
         justify-content: center; 
+        padding: 5px;
+        color: #535353;
+        font-family: Verdana;
+        font-size: 30px;
       }
       #box {
         background-color: gainsboro;
@@ -16,14 +20,23 @@
         background-color: white;
         position: relative;
         width: 50%;
+        overflow-x: auto;
+        padding: 5px;
+        color: #535353;
+        font-family: Verdana;
       }
       #errorBox {
-        background-color: gainsboro;
+        font-weight: 700;
         align-items: center;
         display: flex;
-        justify-content: center;
-        font-weight: 700;
+        justify-content: center; 
+        padding: 5px;
         color: red;
+        font-family: Verdana;
+        font-size: 30px;
+    }
+    #usernameSpan {
+      color: skyblue;
     }
     </style>
 
@@ -53,17 +66,17 @@ try {
 
       $messages = ($conn -> query("SELECT `body`, `messageId`, `dateTime` FROM `messages` WHERE messages.fromUserId = '$userId' ORDER BY `dateTime` DESC"));
 
-      print "<div id='header'> From Username: " . $username . "</div>";
+      print "<div id='header'> From <span id='usernameSpan'>&nbsp;" . $username . "</span></div>";
       
       if( ($messages -> rowCount()) == 0 ) {
-        print "<div id='box'><div id='obj'>No Messages from " . $username . "</div></div>";
+        print "<div id='box'><div id='obj'><strong>No Messages from <span id='usernameSpan'>" . $username . "</span></strong></div></div>";
       }
       foreach ( $messages as $message) {
         $messageIdTemp = $message['messageId'];
         $recipientUserIds = ($conn -> query("SELECT `toUserId` FROM `messageRecipients` WHERE `messageId` = '$messageIdTemp'"));
         print "<div id='box'>";
         print "<div id='obj'>";
-        print "<strong>To ";
+        print "<strong>To <span id='usernameSpan'>";
         $firstTimeRecipientLoop = True;
         foreach( $recipientUserIds as $recipientUserId) {
           if ($firstTimeRecipientLoop) {
@@ -75,11 +88,8 @@ try {
           $idTemp = $recipientUserId['toUserId'];
           print ($conn -> query("SELECT `username` FROM `users` WHERE `userId` = '$idTemp'"))->fetch()['username'];
         }
-        print "</strong>: ";
+        print "</span> at " . $message['dateTime'] . "</strong><br>";
         print $message['body'];
-        print "<br><i>";
-        print $message['dateTime'];
-        print "</i>";
         print "</div>";
         print "</div>";
       }

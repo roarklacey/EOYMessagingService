@@ -11,129 +11,170 @@
         background-color: gainsboro;
       }
       #controlPanel {
-        background-color: whitesmoke;
         height: 100%;
         float: left;
       }
       #reportArea {
-        background-color: gainsboro;
         height: 100%;
         overflow-x: auto;
         overflow-y: auto;
       }
       .panelTitle {
-        padding: 0;
         margin: 0;
-        color: black;
         text-align: center;
+        color: #535353;
+        font-family: Verdana;
+        padding: 5px;
+        font-size: 15px;
         font-weight: 700;
-        padding: 2px;
       }
       #checkMessagesToPanel {
-        border: 2px solid black;
         position: relative;
+        margin: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
       }
       #checkMessagesFromPanel{
-
-        border: 2px solid black;
-        border-top: 0px solid black;
         position: relative;
+        margin: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
       }
       #newUserPanel {
-        border: 2px solid black;
-        border-top: 0px solid black;
         position: relative;
+        margin: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
       }
       #newMessagePanel {
-        border: 2px solid black;
-        border-top: 0px solid black;
         position: relative;
+        margin: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
       }
       input[type=text] {
-        width: 150px;
-        position: absolute;
-        right: 0px;
+        position: relative;
+        width: 100%;
+        color: #535353;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 0px;
+        border-bottom: 2px solid gainsboro;
+
       }
       input[type=password] {
-        width: 150px;
-        position: absolute;
-        right: 0px;
+        position: relative;
+        width: 100%;
+        color: #535353;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 0px;
+        border-bottom: 2px solid gainsboro;
+      }
+      textarea {
+        position: relative;
+        color: #535353;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 0px;
+        border-bottom: 2px solid gainsboro;
       }
       #indiv {
-        padding: 2px;
+        padding: 5px;
+        color: #535353;
+        font-family: Verdana;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;    
+      }
+      #messageNM {
+        resize: none;
+      }
+      .button {
+        border: 0px;
+        background-color: white;
+        color: #535353;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 100%;
+        background-color: skyblue;
+      }
+      .button:hover {
+        background-color: gainsboro;
       }
     </style>  </head>
   <body>
     <div id="controlPanel">
-		
       <div id="checkMessagesToPanel">
         <p class="panelTitle">Messages To Panel</p>
-        <form action="javascript:checkMessagesTo();" method="post">
+        <form style="background-color: white" action="javascript:checkMessagesTo();" method="post">
           <div id="indiv">
-            To: <input type="text" name="username" placeholder="Username" id="usernameCMT"></input><br>
+            <input type="text" name="username" placeholder="Username" id="usernameCMT"></input><br>
           </div>
           <div id="indiv">
-            <input type="submit"></input>
+            <input class="button" type="submit"></input>
           </div>
         </form>
       </div>
-      
       <div id="checkMessagesFromPanel">
         <p class="panelTitle">Messages From Panel</p>
-        <form action="javascript:checkMessagesFrom();" method="post">
+        <form style="background-color: white" action="javascript:checkMessagesFrom();" method="post">
           <div id="indiv">
-            From: <input type="text" name="username" placeholder="Username" id="usernameCMF"></input><br>
+            <input type="text" name="username" placeholder="Username" id="usernameCMF"></input><br>
           </div>
           <div id="indiv">
-            <input type="submit"></input>
+            <input class="button" type="submit"></input>
           </div>
         </form>
       </div>
-      
       <div id="newMessagePanel">
         <p class="panelTitle">New Message Panel</p>
-        <form action="javascript:newMessage();" method="post">
+        <form style="background-color: white" action="javascript:newMessage();" method="post">
           <div id="indiv">
-            From: <input type="text" name="from" placeholder="From" id="fromNM"></input>
+            <input type="text" name="from" placeholder="From" id="fromNM"></input>
           </div>
           <div id="indiv">
-            To: <input type="text" name="to" placeholder="Recipient(s)" id="toNM"></input>
+            <input type="text" name="to" placeholder="Recipient(s)" id="toNM"></input>
           </div>
           <div id="indiv">
-            Body:<br>
-          <textarea rows=6 cols=30 name="message" maxlength="1000" id="messageNM"></textarea>
+          <textarea rows=4 cols=30 name="message" maxlength="1000" id="messageNM"></textarea>
           </div>
           <div id="indiv">
-            <input type="submit"></input>
+            <input class="button" type="submit"></input>
           </div>
           <div id="indiv">
-            <button type="button" onclick="information()">Information</button>
+            <button class="button" type="button" onclick="information()">Information</button>
           </div>
         </form>
       </div>
-      
       <div id="newUserPanel">
         <p class="panelTitle">New User Panel</p>
-        <form action="javascript:newUser();" method="post">
+        <form style="background-color: white" action="javascript:newUser();" method="post">
           <div id="indiv">
-            Username: <input type="text" name="username" placeholder="Username" id="usernameNU"></input>
+            <input type="text" name="username" placeholder="Username" id="usernameNU"></input>
           </div>
           <div id="indiv">
-            Password: <input type="password" name="password" placeholder="Password" id="passwordNU"></input>
+            <input type="password" name="password" placeholder="Password" id="passwordNU"></input>
           </div>
           <div id="indiv">
-            Email: <input type="text" name="email" placeholder="Email" id="emailNU"></input>
+            <input type="text" name="email" placeholder="Email" id="emailNU"></input>
           </div>
           <div id="indiv">
-            <input type="submit"></input>
+            <input class="button" type="submit"></input>
           </div>
         </form>
       </div>
-    
     </div>
-    
     <div id="reportArea">
-      AJAX Request Output 
     </div>
   </body>
   <script>
@@ -183,7 +224,7 @@
     }
     
     function information() {
-      alert("Send Message to Multiple Recipients Separating by Comma Space\nExample: 'user1, user2, user3'");
+      alert("Send Message to Multiple Recipients Separating by Comma Space.\nExample: 'user1, user2, user3'");
     }
 
   </script>

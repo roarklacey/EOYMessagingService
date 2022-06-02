@@ -4,6 +4,10 @@
         align-items: center;
         display: flex;
         justify-content: center; 
+        padding: 5px;
+        color: #535353;
+        font-family: Verdana;
+        font-size: 30px;
       }
       #box {
         background-color: gainsboro;
@@ -16,14 +20,23 @@
         background-color: white;
         position: relative;
         width: 50%;
+        overflow-x: auto;
+        padding: 5px;
+        color: #535353;
+        font-family: Verdana;
       }
       #errorBox {
-        background-color: gainsboro;
+        font-weight: 700;
         align-items: center;
         display: flex;
-        justify-content: center;
-        font-weight: 700;
+        justify-content: center; 
+        padding: 5px;
         color: red;
+        font-family: Verdana;
+        font-size: 30px;
+      }
+      #usernameSpan {
+      color: skyblue;
       }
     </style>
 
@@ -53,7 +66,7 @@ try {
 
       $messages = ($conn -> query("SELECT `body`, `fromUserId`, `dateTime` FROM `messages` JOIN `messagerecipients` WHERE messagerecipients.toUserId = '$userId' AND messages.messageId = messagerecipients.messageId ORDER BY `dateTime` DESC"));
 
-      print " <div id='header'> To Username: " . $username . "</div>";
+      print " <div id='header'> To <span id='usernameSpan'>&nbsp;" . $username . "</span></div>";
 
       if( ($messages -> rowCount()) == 0 ) {
         print "<div id='box'><div id='obj'>No Messages to " . $username . "</div></div>";
@@ -64,11 +77,8 @@ try {
         $usernameTemp = ($conn -> query("SELECT `username` FROM `users` WHERE userId='$fromUserIdTemp' ")) -> fetch()['username'];
         print "<div id='box'>";
         print "<div id='obj'>";
-        print "<strong>" . $usernameTemp . ":</strong> ";
+        print "<strong>From <span id='usernameSpan'>" . $usernameTemp . "</span> at " . $message['dateTime'] . "</strong><br>";
         print $message['body'];
-        print "<br><i>";
-        print $message['dateTime'];
-        print "</i>";
         print "</div>";
         print "</div>";
       }
