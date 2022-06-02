@@ -19,7 +19,7 @@
       #obj {
         background-color: white;
         position: relative;
-        width: 50%;
+        width: 75%;
         overflow-x: auto;
         padding: 5px;
         color: #535353;
